@@ -50,22 +50,22 @@ async function managerQuestions(){
         },
         {
             type:"input",
-            name: "officeNumber",
-            message:"What is your office number?"
-        },
-        {
-            type:"input",
             name: "id",
             message:"What is your ID?"
         },
         {
             type:"input",
-            name: "contact",
+            name: "email",
             message:"your Email?"
-        },  
+        }, 
+        {
+            type:"input",
+            name: "officeNumber",
+            message:"What is your office number?"
+        }
     ]).then( answers =>{
 
-        const manager = new Manager(answers.name, answers.officeNumber, answers.id, answers.contact);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         teamarray.push(manager);
 
         startQuestions();
@@ -89,7 +89,7 @@ async function engineerQuestions(){
         },
         {
             type:"input",
-            name: "contact",
+            name: "email",
             message:"your Email?"
         }, 
         {
@@ -98,8 +98,7 @@ async function engineerQuestions(){
             message:"What is your GitHub username?",
         }
     ]).then( answers => {
-        let github = "https://github.com/${answers.github}";
-        const engineer = new Engineer(answers.name, answers.id, answers.email, github);
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
         teamarray.push(engineer);
 
         startQuestions();
@@ -123,7 +122,7 @@ async function internQuestions(){
         },
         {
             type:"input",
-            name: "contact",
+            name: "email",
             message:"your Email?"
         }, 
         {
@@ -141,13 +140,13 @@ async function internQuestions(){
         console.log(error);
     })
 };
-
- function renderHTML(){
-    const html = render (teamarray);
-    fs.writeFile(outputPath, html, function(err){
+//Creates HTML within output folder
+function renderHTML(){
+    let html = render(teamarray);
+    fs.writeFile (outputPath, html, function(err){
         if (err) throw err;
     console.log("Team page has been created!");
 });
 }
- 
+
 startQuestions();
