@@ -6,3 +6,4 @@ Open the app.js file in Visual studio code then open the terminal to the Develop
 
 ## Testing ##
 Simply run "npm test" within the terminal to starts the jest testing.
+![test](./Develop/tests.png)

@@ -5,11 +5,13 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+//links to the team html
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//collects all team members as objects 
 let teamarray = [];
 
 //create a role selecter to send user to questions in respective role 
@@ -40,7 +42,7 @@ function startQuestions() {
         console.log(error);
     })
 };
-//questions for the manager
+//Questions for the manager
 async function managerQuestions(){
     inquirer.prompt([
         {
@@ -74,7 +76,7 @@ async function managerQuestions(){
         console.log(error);
     })
 };
-
+//Engineer Questions
 async function engineerQuestions(){
     inquirer.prompt([
         {
@@ -107,7 +109,7 @@ async function engineerQuestions(){
         console.log(error);
     })
 };
-
+//intern Questions
 async function internQuestions(){
     inquirer.prompt([
         {
