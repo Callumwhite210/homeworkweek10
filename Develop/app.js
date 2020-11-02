@@ -36,6 +36,8 @@ function startQuestions() {
         } else if (answers.role === "Done"){
             renderHTML();
         }
+    }).catch(error => {
+        console.log(error);
     })
 };
 //questions for the manager
@@ -44,29 +46,31 @@ async function managerQuestions(){
     inquirer.prompt([
         {
             type:"input",
-            name: "managername",
+            name: "name",
             message:"What is your name?"
         },
         {
             type:"input",
-            name: "managerofficenum",
+            name: "officeNumber",
             message:"What is your office number?"
         },
         {
             type:"input",
-            name: "managerid",
+            name: "id",
             message:"What is your ID?"
         },
         {
             type:"input",
-            name: "managercontact",
+            name: "contact",
             message:"your Email?"
         },  
     ]).then( answers => {
-        const manager = new manager(answers.managername, answers.managerofficenum, answers.managerid, answers.managercontact);
+        const manager = new manager(answers.name, answers.officeNumber, answers.id, answers.contact);
         console.log(manager)
         teamarray.push(manager);
         startQuestions();
+    }).catch(error => {
+        console.log(error);
     })
 };
 
@@ -75,24 +79,31 @@ async function engineerQuestions(){
     inquirer.prompt([
         {
             type:"input",
-            name:"engineername",
+            name:"name",
             message:"What is your name?",
         },
         {
             type:"input",
-            name:"engineerofficenum",
-            message:"what is your office number?",
+            name: "id",
+            message:"What is your ID?"
         },
         {
             type:"input",
-            name:"engineergithub",
+            name: "contact",
+            message:"your Email?"
+        }, 
+        {
+            type:"input",
+            name:"github",
             message:"What is your GitHub profile?",
         }
     ]).then( answers => {
-        const engineer = new engineer(answers.engineername, answers.engineerofficenum, answers.engineergithub);
+        const engineer = new engineer(answers.name, answers.id, answers.email, answers.github);
         console.log(engineer);
         teamarray.push(engineer);
         startQuestions();
+    }).catch(error => {
+        console.log(error);
     })
 };
 
@@ -101,24 +112,31 @@ async function internQuestions(){
     inquirer.prompt([
         {
             type:"input",
-            name:"internname",
+            name:"name",
             message:"What is your name?"
         },
         {
             type:"input",
-            name:"internofficenum",
-            message:"What is your office number?"
+            name: "id",
+            message:"What is your ID?"
         },
         {
             type:"input",
-            name:"internschool",
+            name: "contact",
+            message:"your Email?"
+        }, 
+        {
+            type:"input",
+            name:"school",
             message:"What school did you attend?"
         },
     ]).then( answers =>{
-        const intern = new intern(answers.internname, answers.internofficenum, answers.internschool);
+        const intern = new intern(answers.name, answers.id, answers.email, answers.school);
         console.log(intern);
         teamarray.push(intern);
         startQuestions();
+    }).catch(error => {
+        console.log(error);
     })
 };
 
