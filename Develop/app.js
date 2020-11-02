@@ -25,7 +25,7 @@ function startQuestions() {
             name:"role",
             message:"What is your role?",
             choices:["Manager","Engineer","Intern","Create HTML"]
-        } //Done just in for testing
+        }
     ]).then(async function roleSelect(answers){
         if (answers.role === "Manager"){
             managerQuestions();
@@ -42,7 +42,6 @@ function startQuestions() {
 };
 //questions for the manager
 async function managerQuestions(){
-    console.log("Manager Prompt");
     inquirer.prompt([
         {
             type:"input",
@@ -65,8 +64,8 @@ async function managerQuestions(){
             message:"your Email?"
         },  
     ]).then( answers =>{
-        
-        const manager = new manager(answers.name, answers.officeNumber, answers.id, answers.contact);
+
+        const manager = new Manager(answers.name, answers.officeNumber, answers.id, answers.contact);
 
         teamarray.push(manager);
 
@@ -78,7 +77,6 @@ async function managerQuestions(){
 };
 
 async function engineerQuestions(){
-    console.log("Engineer Prompt");
     inquirer.prompt([
         {
             type:"input",
@@ -98,11 +96,11 @@ async function engineerQuestions(){
         {
             type:"input",
             name:"github",
-            message:"What is your GitHub profile?",
+            message:"What is your GitHub username?",
         }
     ]).then( answers => {
-        const engineer = new engineer(answers.name, answers.id, answers.email, answers.github);
-        console.log(engineer);
+        let github = "https://github.com/${answers.github}";
+        const engineer = new Engineer(answers.name, answers.id, answers.email, github);
         teamarray.push(engineer);
         startQuestions();
     }).catch(error => {
@@ -111,7 +109,6 @@ async function engineerQuestions(){
 };
 
 async function internQuestions(){
-    console.log("Intern Prompt");
     inquirer.prompt([
         {
             type:"input",
@@ -134,8 +131,7 @@ async function internQuestions(){
             message:"What school did you attend?"
         },
     ]).then( answers =>{
-        const intern = new intern(answers.name, answers.id, answers.email, answers.school);
-        console.log(intern);
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         teamarray.push(intern);
         startQuestions();
     }).catch(error => {
@@ -144,9 +140,9 @@ async function internQuestions(){
 };
 
 function renderHTML(){
-    const html = render(teamarray);
-    fs.writeFile(outputPath, html, function(err){
-    if (err) throw err;
+    const html = render (teamarray);
+    fs.writeFile(outputPath, html, "utf-8", function(err){
+        if (err) throw err;
     console.log("Team page has been created!");
 });
 }
