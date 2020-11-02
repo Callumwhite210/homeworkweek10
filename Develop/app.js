@@ -17,14 +17,14 @@ let teamarray = [];
 //Manager
 //Engineer
 //Intern
-startQuestions(); 
+ 
 function startQuestions() {
     inquirer.prompt([
         {
             type:"list",
             name:"role",
             message:"What is your role?",
-            choices:["Manager","Engineer","Intern","Done"]
+            choices:["Manager","Engineer","Intern","Create HTML"]
         } //Done just in for testing
     ]).then(async function roleSelect(answers){
         if (answers.role === "Manager"){
@@ -33,7 +33,7 @@ function startQuestions() {
             engineerQuestions();
         } else if (answers.role === "Intern"){
             internQuestions();
-        } else if (answers.role === "Done"){
+        } else if (answers.role === "Create HTML"){
             renderHTML();
         }
     }).catch(error => {
@@ -64,11 +64,14 @@ async function managerQuestions(){
             name: "contact",
             message:"your Email?"
         },  
-    ]).then( answers => {
+    ]).then( answers =>{
+        
         const manager = new manager(answers.name, answers.officeNumber, answers.id, answers.contact);
-        console.log(manager)
+
         teamarray.push(manager);
+
         startQuestions();
+
     }).catch(error => {
         console.log(error);
     })
@@ -142,11 +145,14 @@ async function internQuestions(){
 
 function renderHTML(){
     const html = render(teamarray);
-    fs.writeFile(outputPath,html,"uft-8", function(err){
+    fs.writeFile(outputPath, html, function(err){
     if (err) throw err;
-    console.log("Team page created!")
+    console.log("Team page has been created!");
 });
 }
+
+startQuestions();
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
